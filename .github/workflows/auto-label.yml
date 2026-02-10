@@ -1,0 +1,43 @@
+name: Auto Label and Assign Issues
+
+on:
+  issues:
+    types: [opened,reopened]
+
+jobs:
+  label_and_assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Naturalclar/issue-action@v2.0.2
+        with:
+          title-or-body: "both"
+          parameters: |
+            [
+              {
+                "keywords": ["bug", "crash", "error"],
+                "labels": ["bug"]
+              },
+              {
+                "keywords": ["feature", "enhancement", "add"],
+                "labels": ["feature request"]
+              },
+              {
+                "keywords": ["accessibility", "screen reader", "aria"],
+                "labels": ["accessibility"]
+              },
+              {
+                "keywords": ["urgent", "critical", "immediate"],
+                "labels": ["high priority"]
+              },
+              {
+                "keywords": ["frontend", "UI", "CSS", "JavaScript"],
+                "labels": ["frontend"]
+              },
+              {
+                "keywords": ["backend", "API", "Flask", "Django"],
+                "labels": ["backend"]
+              }
+            ]
+          assignees: "moneyhouse"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
